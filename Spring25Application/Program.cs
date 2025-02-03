@@ -8,9 +8,8 @@ namespace Spring25App
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, Welcome to THE STORE!!");
-            var lastKey = 1;
 
-            Console.WriteLine("(C) Create new inventory item");
+            Console.WriteLine("(C) Create new inventory item or add item to cart");
             Console.WriteLine("(R) Read all inventory items");
             Console.WriteLine("(U) Update an inventory item");
             Console.WriteLine("(D) Delete an inventory item");
@@ -27,9 +26,8 @@ namespace Spring25App
                 switch (choice)
                 {
                     case 'C':
-                        list.Add(new Product
+                        ProductServiceProxy.Current.AddOrUpdate(new Product
                         {
-                            Id = lastKey++,
                             Name = Console.ReadLine()
                         });
                         break;
@@ -39,17 +37,21 @@ namespace Spring25App
                     case 'U':
                         Console.WriteLine("Which product would you like to update?");
                         int selection = int.Parse(Console.ReadLine() ?? "-1");
-                        var selectedProd = list.FirstOrDefault(p => p.Id == selection);
+                        var selectedProd = list.FirstOrDefault(p => p.Id == selection); //make copy constructor
+
                         if (selectedProd != null)
                         {
                             selectedProd.Name = Console.ReadLine() ?? "ERROR";
+
+                            ProductServiceProxy.Current.AddOrUpdate(selectedProd);
                         }
+
+
                         break;
                     case 'D':
                         Console.WriteLine("Which product would you like to delete?");
                         int selection2 = int.Parse(Console.ReadLine() ?? "-1");
-                        var selectedProd2 = list.FirstOrDefault(p => p.Id == selection2);
-                        list.Remove(selectedProd2);
+                        ProductServiceProxy.Current.Delete(selection2);
                         break;
                     case 'Q':
                         Console.WriteLine("Closing Application");
