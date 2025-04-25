@@ -1,16 +1,11 @@
-﻿using System;
+﻿//Wyatt Granlund
+//COP 4870
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-/*namespace Library.eCommerce.Services
-{
-    internal class CartServiceProxy
-    {
-      
-    }
-}*/
 
 using Spring2025_Samples.Models;
 

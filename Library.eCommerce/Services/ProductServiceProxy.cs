@@ -1,4 +1,7 @@
-﻿using Spring2025_Samples.Models;
+﻿//Wyatt Granlund
+//COP 4870
+
+using Spring2025_Samples.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +16,7 @@ namespace Library.eCommerce.Services
         {
             Products = new List<Product?>
             {
-                new Product{Id = 1, Name ="Product 1"},
-                new Product{Id = 2, Name ="Product 2"},
-                new Product{Id = 3, Name ="Product 3"}
+                new Product{Id = 1, Name = "AnItem", Price = 100, Quantity = 1}
             };
         }
 

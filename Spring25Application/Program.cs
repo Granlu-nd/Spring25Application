@@ -1,74 +1,5 @@
-﻿//using Library.eCommerce.Services;
-//using Spring25App.Models;
-
-/*namespace Spring25App
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, Welcome to THE STORE!!");
-
-            Console.WriteLine("(C) Create new inventory item or add item to cart");
-            Console.WriteLine("(R) Read all inventory items");
-            Console.WriteLine("(U) Update an inventory item");
-            Console.WriteLine("(D) Delete an inventory item");
-            Console.WriteLine("(Q) Quit");
-
-            List<Product?> list = ProductServiceProxy.Current.Products;
-
-            char choice;
-            do
-            {
-                string? input = Console.ReadLine();
-                choice = input.ToUpper()[0];
-
-                switch (choice)
-                {
-                    case 'C':
-                        ProductServiceProxy.Current.AddOrUpdate(new Product
-                        {
-                            Name = Console.ReadLine()
-                        });
-                        break;
-                    case 'R':
-                        list.ForEach(Console.WriteLine);
-                        break;
-                    case 'U':
-                        Console.WriteLine("Which product would you like to update?");
-                        int selection = int.Parse(Console.ReadLine() ?? "-1");
-                        var selectedProd = list.FirstOrDefault(p => p.Id == selection); //make copy constructor
-
-                        if (selectedProd != null)
-                        {
-                            selectedProd.Name = Console.ReadLine() ?? "ERROR";
-
-                            ProductServiceProxy.Current.AddOrUpdate(selectedProd);
-                        }
-
-
-                        break;
-                    case 'D':
-                        Console.WriteLine("Which product would you like to delete?");
-                        int selection2 = int.Parse(Console.ReadLine() ?? "-1");
-                        ProductServiceProxy.Current.Delete(selection2);
-                        break;
-                    case 'Q':
-                        Console.WriteLine("Closing Application");
-                        break;
-                    default:
-                        Console.WriteLine("ERROR: Invalid choice");
-                        break;
-                }
-            } while (choice != 'Q' || choice != 'q');
-
-            Console.ReadLine();
-
-        }
-
-    }
-
-}*/
+﻿//Wyatt Granlund
+//COP 4870
 
 using Library.eCommerce.Services;
 using Spring2025_Samples.Models;
@@ -99,14 +30,17 @@ namespace MyApp
                     case "i":
                         ManageInventory(inventory);
                         break;
+
                     case "S":
                     case "s":
                         ManageCart(inventory, cart);
                         break;
+
                     case "C":
                     case "c":
                         Console.WriteLine(cart.Checkout());
                         return;
+
                     default:
                         Console.WriteLine("Invalid choice.");
                         break;
@@ -119,17 +53,18 @@ namespace MyApp
             while (true)
             {
                 Console.WriteLine("\nInventory Menu:");
-                Console.WriteLine("1. Create Product");
-                Console.WriteLine("2. View Products");
-                Console.WriteLine("3. Update Product");
-                Console.WriteLine("4. Delete Product");
-                Console.WriteLine("5. Return to Main Menu");
+                Console.WriteLine("(C) Create Product");
+                Console.WriteLine("(V) View Products");
+                Console.WriteLine("(U) Update Product");
+                Console.WriteLine("(D) Delete Product");
+                Console.WriteLine("(R) Return to Main Menu");
                 Console.Write("Choice: ");
                 string? input = Console.ReadLine();
 
                 switch (input)
                 {
-                    case "1":
+                    case "C":
+                    case "c":
                         var p = new Product();
 
                         Console.Write("Product Name: ");
@@ -146,12 +81,14 @@ namespace MyApp
                         inventory.AddOrUpdate(p);
                         break;
 
-                    case "2":
+                    case "V":
+                    case "v":
                         Console.WriteLine("\nInventory:");
                         inventory.Products.ForEach(p => Console.WriteLine(p));
                         break;
 
-                    case "3":
+                    case "U":
+                    case "u":
                         Console.Write("Enter Product ID to update: ");
                         int.TryParse(Console.ReadLine(), out int updateId);
                         var prod = inventory.GetById(updateId);
@@ -192,13 +129,15 @@ namespace MyApp
 
                         break;
 
-                    case "4":
+                    case "D":
+                    case "d":
                         Console.Write("Enter Product ID to delete: ");
                         int.TryParse(Console.ReadLine(), out int delId);
                         inventory.Delete(delId);
                         break;
 
-                    case "5":
+                    case "R":
+                    case "r":
                         return;
 
                     default:
@@ -213,28 +152,31 @@ namespace MyApp
             while (true)
             {
                 Console.WriteLine("\nCart Menu:");
-                Console.WriteLine("1. View Inventory");
-                Console.WriteLine("2. View Cart");
-                Console.WriteLine("3. Add to Cart");
-                Console.WriteLine("4. Remove from Cart");
-                Console.WriteLine("5. Return to Main Menu");
+                Console.WriteLine("(I) View Inventory");
+                Console.WriteLine("(V) View Cart");
+                Console.WriteLine("(A) Add to Cart");
+                Console.WriteLine("(R) Remove from Cart");
+                Console.WriteLine("(Q) Return to Main Menu");
                 Console.Write("Choice: ");
                 string? input = Console.ReadLine();
 
                 switch (input)
                 {
-                    case "1":
+                    case "I":
+                    case "i":
                         inventory.Products.ForEach(p => Console.WriteLine(p));
                         break;
 
-                    case "2":
+                    case "V":
+                    case "v":
                         if (cart.Items.Count == 0)
                             Console.WriteLine("Cart is empty.");
                         else
                             cart.Items.ForEach(p => Console.WriteLine(p));
                         break;
 
-                    case "3":
+                    case "A":
+                    case "a":
                         Console.Write("Enter Product ID to add: ");
                         int.TryParse(Console.ReadLine(), out int addId);
                         var item = inventory.GetById(addId);
@@ -257,7 +199,8 @@ namespace MyApp
                         Console.WriteLine("Added to cart.");
                         break;
 
-                    case "4":
+                    case "R":
+                    case "r":
                         Console.Write("Enter Product ID to remove: ");
                         int.TryParse(Console.ReadLine(), out int remId);
 
@@ -280,7 +223,8 @@ namespace MyApp
                         }
                         break;
 
-                    case "5":
+                    case "Q":
+                    case "q":
                         return;
 
                     default:
